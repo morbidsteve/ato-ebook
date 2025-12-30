@@ -126,3 +126,18 @@ export function getHomeContent(): ContentItem {
     content,
   };
 }
+
+export function getExecutiveSummary(): ContentItem {
+  const filePath = path.join(contentDirectory, 'executive-summary.md');
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  return {
+    meta: {
+      title: data.title || extractTitleFromContent(content),
+      description: data.description || extractDescriptionFromContent(content),
+      slug: 'executive-summary',
+    },
+    content,
+  };
+}

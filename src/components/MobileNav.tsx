@@ -57,7 +57,7 @@ export default function MobileNav({ chapters, templates }: MobileNavProps) {
         <div className="p-6 pt-16 overflow-y-auto h-full">
           <nav className="space-y-8">
             {/* Introduction */}
-            <div>
+            <div className="space-y-1">
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
@@ -68,6 +68,17 @@ export default function MobileNav({ chapters, templates }: MobileNavProps) {
                 }`}
               >
                 Introduction
+              </Link>
+              <Link
+                href="/executive-summary"
+                onClick={() => setIsOpen(false)}
+                className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  pathname === '/executive-summary'
+                    ? 'bg-amber-100 text-amber-800'
+                    : 'text-amber-700 hover:bg-amber-50'
+                }`}
+              >
+                Executive Summary
               </Link>
             </div>
 

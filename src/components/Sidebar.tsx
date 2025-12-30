@@ -27,7 +27,7 @@ export default function Sidebar({ chapters, templates }: SidebarProps) {
 
         <nav className="space-y-8">
           {/* Introduction */}
-          <div>
+          <div className="space-y-1">
             <Link
               href="/"
               className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -37,6 +37,16 @@ export default function Sidebar({ chapters, templates }: SidebarProps) {
               }`}
             >
               Introduction
+            </Link>
+            <Link
+              href="/executive-summary"
+              className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                pathname === '/executive-summary'
+                  ? 'bg-amber-100 text-amber-800'
+                  : 'text-amber-700 hover:bg-amber-50'
+              }`}
+            >
+              Executive Summary
             </Link>
           </div>
 
