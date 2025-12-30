@@ -28,9 +28,18 @@ export default function ExecutiveSummaryPage() {
         <span className="text-sm text-slate-500">Two-Page Brief for Leadership</span>
       </div>
 
-      {/* Download PDF button */}
-      <div className="mb-8 print:hidden">
+      {/* Action buttons */}
+      <div className="mb-8 print:hidden flex flex-wrap gap-3">
         <DownloadPDFButton filename="executive-summary.pdf" label="Download PDF" />
+        <Link
+          href="/presentation"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+          </svg>
+          View as Presentation
+        </Link>
       </div>
 
       {/* Content */}
