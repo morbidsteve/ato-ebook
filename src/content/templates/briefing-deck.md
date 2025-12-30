@@ -69,7 +69,12 @@ The Enterprise DevSecOps Platform enables [Organization] to:
 • Deploy mission applications 10x faster with built-in security
 • Standardize software delivery across 47 programs of record
 • Achieve continuous compliance instead of point-in-time assessments
-• Reduce duplicative infrastructure spending by consolidating workloads
+• Support both managed and self-hosted deployment options
+
+Deployment Flexibility:
+  • Managed Service: Centrally-operated for teams wanting turnkey solutions
+  • Local Installation: Self-hosted for programs with dedicated hardware,
+                        air-gapped networks, or data residency requirements
 
 User Community: 1,200 developers across 23 mission teams
 
@@ -79,8 +84,9 @@ Operational Since: Pilot launched Q2 2024
 
 **Speaker Notes:**
 - Connect the platform to agency modernization priorities
-- Emphasize this is infrastructure that enables mission delivery
-- Mention the cost avoidance from consolidating duplicate systems
+- Emphasize deployment flexibility - not one-size-fits-all
+- Some programs have requirements (air-gapped, data residency) requiring local installation
+- Both options use identical hardened runtime and inherit same security controls
 - If asked: each program previously ran their own container infrastructure
 
 ---
@@ -143,8 +149,15 @@ INCLUDED IN SCOPE:
 ✓ Security tooling: OPA Gatekeeper, Falco runtime monitoring, Trivy scanning
 ✓ GitOps infrastructure: Flux CD, sealed secrets management
 
-EXCLUDED (Inherited from Cloud Provider - FedRAMP High):
-→ AWS GovCloud infrastructure, physical security, hypervisor
+DEPLOYMENT OPTIONS:
+✓ Managed Service: Centrally-operated clusters in cloud environment
+✓ Local Installation: Self-hosted on program hardware (air-gapped capable)
+
+EXCLUDED (Inherited - Managed Service):
+→ AWS GovCloud infrastructure, physical security, hypervisor (FedRAMP High)
+
+EXCLUDED (Inherited - Local Installation):
+→ Physical security, hardware per hosting organization's authorization
 
 EXCLUDED (Separate Authorization):
 → Mission applications (inherit platform controls, own app-specific)
@@ -153,7 +166,10 @@ EXCLUDED (Separate Authorization):
 **Speaker Notes:**
 - Walk through each layer of the diagram
 - Emphasize what's IN scope (the platform) vs OUT of scope (applications)
-- The cloud provider inheritance means ~40% of controls are already satisfied
+- Highlight deployment flexibility: managed service OR local installation
+- Local installation supports air-gapped networks and data residency requirements
+- Both options use identical hardened runtime - same security controls regardless of where deployed
+- Cloud provider inheritance (managed) means ~40% of controls already satisfied
 - Mission apps will have dramatically shorter ATOs because they inherit from this platform
 
 ---
@@ -600,6 +616,7 @@ Print and leave with the AO for reference:
 │  MISSION                                                             │
 │  Standardized container platform enabling rapid, secure deployment   │
 │  of mission applications across 23 teams and 47 programs of record. │
+│  Available as managed service or local installation (air-gap ready).│
 │                                                                      │
 │  REQUEST                                                             │
 │  Continuous Authorization to Operate (cATO)                          │

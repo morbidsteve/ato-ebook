@@ -35,8 +35,15 @@ The hidden expense isn't hardware or software—it's labor. Organizations spend 
 
 Modern DevSecOps practices, combined with a standardized platform approach, fundamentally change this equation. A **DevSecOps Platform (DSOP)** with an approved **secure container runtime** creates a foundation where compliance is inherited, not rebuilt.
 
+**Flexible Deployment Options**
+The secure container runtime can be deployed in multiple ways to meet organizational needs:
+- **Managed Service** — Centrally-operated platform for organizations wanting turnkey solutions
+- **Local Installation** — Self-hosted deployment for programs with dedicated hardware, air-gapped requirements, or specific data residency needs
+
+Both options use the same hardened runtime and inherit the same security controls, ensuring consistent compliance regardless of deployment model.
+
 **Shared Infrastructure, Inherited Security**
-A centrally-managed Kubernetes platform with hardened container runtime provides:
+Whether centrally-managed or locally-installed, the Kubernetes platform with hardened container runtime provides:
 - **One-time platform authorization** that all hosted applications inherit
 - Pre-approved base images with embedded security controls
 - Standardized network policies, encryption, and access controls
@@ -80,7 +87,7 @@ Rather than point-in-time authorization that immediately begins decaying, contin
 
 ### Recommended Actions
 
-1. **Establish a DevSecOps Platform** — Deploy a centrally-managed, FedRAMP/DoD-approved Kubernetes environment with hardened container runtime as the standard deployment target for all new applications
+1. **Establish a DevSecOps Platform** — Deploy a FedRAMP/DoD-approved Kubernetes environment with hardened container runtime as the standard deployment target for all new applications. Offer both managed service and local installation options to accommodate varying program needs
 
 2. **Pursue Platform-Level Authorization** — Obtain cATO for the platform itself, enabling hosted applications to inherit the majority of security controls
 

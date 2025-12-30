@@ -1,5 +1,6 @@
 import { getTemplate, getTemplates } from '@/lib/mdx';
 import MDXContent from '@/components/MDXContent';
+import DownloadPDFButton from '@/components/DownloadPDFButton';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -51,10 +52,13 @@ export default async function TemplatePage({ params }: PageProps) {
       </div>
 
       {/* Template indicator */}
-      <div className="mb-6">
+      <div className="mb-6 flex items-center gap-4">
         <span className="inline-block px-3 py-1 text-xs font-semibold text-emerald-700 bg-emerald-100 rounded-full">
           Template
         </span>
+        {slug === 'briefing-deck' && (
+          <DownloadPDFButton filename="ao-briefing-deck.pdf" label="Download PDF" />
+        )}
       </div>
 
       {/* Content */}

@@ -1,6 +1,6 @@
 import { getExecutiveSummary } from '@/lib/mdx';
 import MDXContent from '@/components/MDXContent';
-import PrintButton from '@/components/PrintButton';
+import DownloadPDFButton from '@/components/DownloadPDFButton';
 import Link from 'next/link';
 
 export const metadata = {
@@ -28,9 +28,9 @@ export default function ExecutiveSummaryPage() {
         <span className="text-sm text-slate-500">Two-Page Brief for Leadership</span>
       </div>
 
-      {/* Print button */}
+      {/* Download PDF button */}
       <div className="mb-8 print:hidden">
-        <PrintButton />
+        <DownloadPDFButton filename="executive-summary.pdf" label="Download PDF" />
       </div>
 
       {/* Content */}
