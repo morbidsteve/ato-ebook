@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-slate-900;
+}
+
+/* Prose adjustments for code blocks */
+pre code {
+  @apply font-mono;
+}
+
+/* Custom scrollbar for sidebar */
+aside::-webkit-scrollbar {
+  width: 4px;
+}
+
+aside::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+aside::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
