@@ -1,6 +1,6 @@
 ---
 title: AO Briefing Deck Template
-description: Authorization briefing presentation template and speaking notes
+description: Authorization briefing presentation template with example content and speaking notes
 published: true
 tags: presentation, briefing, ao, authorization, template
 editor: markdown
@@ -8,7 +8,7 @@ editor: markdown
 
 # AO Briefing Deck Template
 
-A complete presentation template for requesting authorization from your Authorizing Official. Includes slide content, speaker notes, and preparation guidance.
+A complete presentation template for requesting authorization from your Authorizing Official. This template includes realistic example content for a Kubernetes DevSecOps Platform—customize the bracketed sections for your specific system.
 
 ---
 
@@ -42,19 +42,20 @@ A complete presentation template for requesting authorization from your Authoriz
 ### Slide 1: Title
 
 ```
-[SYSTEM NAME]
+Enterprise DevSecOps Platform (DSOP)
 Authorization Briefing
 
-[DATE]
+January 15, 2025
 
-Presented by: [NAME], [TITLE]
-Supported by: [ISSM NAME], ISSM
+Presented by: [Your Name], Platform Engineering Lead
+Supported by: [ISSM Name], Information System Security Manager
 ```
 
 **Speaker Notes:**
 - Introduce yourself and the ISSM
-- Confirm time available for the briefing
-- Ask if there are any specific areas of concern to address
+- Confirm time available for the briefing (recommend 45 minutes including questions)
+- Ask if there are any specific areas of concern to address upfront
+- Thank them for their time and the opportunity to brief
 
 ---
 
@@ -63,22 +64,24 @@ Supported by: [ISSM NAME], ISSM
 ```
 Mission Context
 
-[SYSTEM NAME] enables [AGENCY/ORGANIZATION] to:
+The Enterprise DevSecOps Platform enables [Organization] to:
 
-• [Primary mission capability #1]
-• [Primary mission capability #2]
-• [Primary mission capability #3]
+• Deploy mission applications 10x faster with built-in security
+• Standardize software delivery across 47 programs of record
+• Achieve continuous compliance instead of point-in-time assessments
+• Reduce duplicative infrastructure spending by consolidating workloads
 
-User Community: [X] users across [Y] organizations
+User Community: 1,200 developers across 23 mission teams
 
-Operational Since: [Date] (current authorization expires [Date])
+Operational Since: Pilot launched Q2 2024
+                   Full production capability requested
 ```
 
 **Speaker Notes:**
-- Connect the system to agency strategic priorities
-- Emphasize who depends on this system
-- If reauthorization, mention operational track record
-- Keep this brief—set context, don't oversell
+- Connect the platform to agency modernization priorities
+- Emphasize this is infrastructure that enables mission delivery
+- Mention the cost avoidance from consolidating duplicate systems
+- If asked: each program previously ran their own container infrastructure
 
 ---
 
@@ -87,85 +90,110 @@ Operational Since: [Date] (current authorization expires [Date])
 ```
 Mission Impact
 
-Without this system:
+Without this platform:
 
-❌ [Impact #1 - specific mission degradation]
-❌ [Impact #2 - operational consequence]
-❌ [Impact #3 - cost or efficiency impact]
+❌ Each program procures separate container infrastructure ($2-5M each)
+❌ Authorization timelines remain 12-18 months per system
+❌ Security teams spread thin across incompatible environments
+❌ No standardized controls = no automation = endless manual labor
 
-Current Dependencies:
-• [X] applications rely on this platform
-• [Y] mission-critical workloads in production
-• [Z] users would lose capability
+Current State:
+• 12 applications already deployed on pilot infrastructure
+• 35 additional applications waiting for platform authorization
+• $4.2M in projected annual savings from consolidation
+• 3 programs delayed pending platform availability
 ```
 
 **Speaker Notes:**
-- Be specific about impact, not generic
-- Use concrete numbers where possible
-- Don't exaggerate—AOs can tell
-- This establishes why the risk is worth accepting
+- Be specific about the cost and timeline impacts
+- The $4.2M savings comes from avoided duplicate infrastructure purchases
+- Programs waiting include [mention 1-2 priority programs if known]
+- Emphasize this enables the mission, not just saves money
 
 ---
 
 ### Slide 4: System Overview
 
 ```
-[AUTHORIZATION BOUNDARY DIAGRAM]
+                    ┌─────────────────────────────────────┐
+                    │     AUTHORIZATION BOUNDARY           │
+                    │                                      │
+                    │  ┌─────────────────────────────┐    │
+                    │  │   Kubernetes Control Plane   │    │
+                    │  │   (API Server, etcd, etc.)  │    │
+                    │  └─────────────────────────────┘    │
+                    │                                      │
+                    │  ┌─────────────────────────────┐    │
+                    │  │   Platform Services          │    │
+                    │  │   Ingress, Service Mesh,     │    │
+                    │  │   Logging, Monitoring        │    │
+                    │  └─────────────────────────────┘    │
+                    │                                      │
+                    │  ┌─────────────────────────────┐    │
+                    │  │   Security Tooling           │    │
+                    │  │   Policy Engine, Runtime     │    │
+                    │  │   Security, Vuln Scanning    │    │
+                    │  └─────────────────────────────┘    │
+                    │                                      │
+                    └─────────────────────────────────────┘
 
-Authorization Boundary
+INCLUDED IN SCOPE:
+✓ Kubernetes control plane and worker nodes (3 clusters)
+✓ Platform services: Istio service mesh, NGINX ingress, Fluentd logging
+✓ Security tooling: OPA Gatekeeper, Falco runtime monitoring, Trivy scanning
+✓ GitOps infrastructure: Flux CD, sealed secrets management
 
-INCLUDED:
-✓ Kubernetes control plane and worker nodes
-✓ Platform services (ingress, service mesh, logging)
-✓ Security tooling (policy engine, runtime monitoring)
-✓ GitOps and deployment infrastructure
-
-EXCLUDED (Inherited):
-→ Cloud provider infrastructure (FedRAMP authorized)
-→ Identity provider ([IdP NAME])
+EXCLUDED (Inherited from Cloud Provider - FedRAMP High):
+→ AWS GovCloud infrastructure, physical security, hypervisor
 
 EXCLUDED (Separate Authorization):
-→ Mission applications (individual ATOs)
+→ Mission applications (inherit platform controls, own app-specific)
 ```
 
 **Speaker Notes:**
-- Walk through the diagram, pointing to key components
-- Clearly state what is IN scope vs OUT of scope
-- Explain inherited authorizations briefly
-- Emphasize this is about the platform, not applications
+- Walk through each layer of the diagram
+- Emphasize what's IN scope (the platform) vs OUT of scope (applications)
+- The cloud provider inheritance means ~40% of controls are already satisfied
+- Mission apps will have dramatically shorter ATOs because they inherit from this platform
 
 ---
 
 ### Slide 5: System Components
 
 ```
-System Components
+System Components - How It Works
 
-┌─────────────────────────────────────────────────┐
-│           External Users & Applications          │
-└─────────────────────┬───────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────┐
-│              Ingress Controller                  │
-│         (Traffic management, TLS, WAF)          │
-└─────────────────────┬───────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────┐
-│               Service Mesh                       │
-│        (Encryption, authentication)             │
-└─────────────────────┬───────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────┐
-│           Application Containers                 │
-│         (Isolated, policy-enforced)             │
-└─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                     Developer Pushes Code                        │
+└─────────────────────────────┬───────────────────────────────────┘
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  GitOps Pipeline                                                 │
+│  • Automated security scanning                                   │
+│  • Policy validation (no critical vulns, required labels)        │
+│  • Signed container images only                                  │
+└─────────────────────────────┬───────────────────────────────────┘
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Admission Control                                               │
+│  • OPA Gatekeeper enforces 47 security policies                  │
+│  • Blocks non-compliant deployments automatically                │
+└─────────────────────────────┬───────────────────────────────────┘
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Runtime Environment                                             │
+│  • Isolated namespaces per team                                  │
+│  • Network policies (default deny)                               │
+│  • Mutual TLS between all services                               │
+│  • Continuous monitoring and alerting                            │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 **Speaker Notes:**
-- Use plain language, not technical jargon
-- Explain how data flows through the system
-- Highlight security at each layer
-- Keep it high-level—details on request
+- Explain this is "shift left" security - problems caught before deployment
+- 47 policies prevent things like: running as root, privilege escalation, missing resource limits
+- If it doesn't pass the checks, it doesn't deploy. Period.
+- This is the key to continuous compliance - enforcement, not just documentation
 
 ---
 
@@ -176,22 +204,31 @@ Security Posture: Access Control
 
 How we control who accesses what:
 
-✓ Authentication via [IdP] with multi-factor
-✓ Role-based access control (minimum necessary)
-✓ Separate roles for developers, operators, security
-✓ Automated account review and deprovisioning
-✓ Break-glass procedures for emergencies
+Authentication:
+✓ CAC/PIV authentication required for all users
+✓ Integration with [Agency] ICAM via SAML 2.0
+✓ Session timeout: 15 minutes idle, 8 hours maximum
 
-Key Metric: [X] privileged users, [Y] require justification
+Authorization:
+✓ Role-based access control (RBAC) with 5 defined roles
+✓ Namespace isolation - teams cannot access other teams' resources
+✓ Cluster-admin limited to 4 platform operators
+✓ All privileged access requires approval and is logged
 
-Evidence: Automated RBAC exports, access review logs
+Access Metrics:
+• 1,247 total users across all teams
+• 4 cluster administrators (platform team only)
+• 23 namespace administrators (team leads)
+• Quarterly access reviews with automated reporting
+
+Evidence: Automated RBAC exports every 24 hours, access review completion logs
 ```
 
 **Speaker Notes:**
-- Emphasize least privilege and separation of duties
-- Mention MFA requirement
-- Be ready to explain break-glass process if asked
-- Reference automated evidence collection
+- Emphasize CAC requirement - no passwords, no exceptions
+- Namespace isolation is key - even if one team is compromised, others are protected
+- The 4 cluster-admins all have background investigations and training
+- Access reviews are automated - we run the report, leadership reviews
 
 ---
 
@@ -202,22 +239,31 @@ Security Posture: Data Protection
 
 How we protect data in transit and at rest:
 
-✓ All external traffic encrypted (TLS 1.2+)
-✓ All internal traffic encrypted (mutual TLS)
-✓ Data at rest encrypted with customer-managed keys
-✓ Secrets encrypted in etcd with KMS
-✓ No sensitive data in container images or logs
+In Transit:
+✓ All external traffic: TLS 1.3 with FIPS 140-2 validated modules
+✓ All internal traffic: Mutual TLS via Istio service mesh
+✓ No unencrypted communication permitted (enforced by policy)
 
-Data Classification: [CUI/FOUO/etc.]
+At Rest:
+✓ etcd (cluster state): Encrypted with AWS KMS
+✓ Persistent volumes: AES-256 encryption, customer-managed keys
+✓ Secrets: Encrypted in etcd + Sealed Secrets for GitOps
 
-Evidence: TLS configurations, KMS key policies, encryption audits
+Data Handling:
+✓ No PII stored on platform (applications manage their own data)
+✓ Logs scrubbed of sensitive content before storage
+✓ 90-day log retention in encrypted S3 buckets
+
+Data Classification: CUI (Controlled Unclassified Information)
+
+Evidence: TLS configuration exports, KMS key policies, encryption audit reports
 ```
 
 **Speaker Notes:**
-- Emphasize encryption everywhere
-- Mention key management approach
-- Be ready to discuss data handling procedures
-- Reference FIPS compliance if applicable
+- FIPS 140-2 validated means we're using approved cryptography
+- Mutual TLS means every service proves its identity to every other service
+- Customer-managed keys means we control rotation, not just the cloud provider
+- If asked about FIPS: "Yes, we're using validated modules for all cryptographic operations"
 
 ---
 
@@ -228,24 +274,31 @@ Security Posture: Vulnerability Management
 
 How we identify and fix security flaws:
 
-✓ Automated scanning of all container images
-✓ Blocking deployment of critical vulnerabilities
-✓ Weekly scanning of running workloads
-✓ Defined SLAs: Critical (24h), High (7d), Medium (30d)
+Scanning Pipeline:
+✓ Every container image scanned before entering registry
+✓ Daily rescans of all images in registry
+✓ Weekly scans of running workloads
+✓ Infrastructure as Code scanned on every commit
 
-Current Status:
-• [X] images scanned this month
-• [Y] critical vulnerabilities blocked
-• [Z] average remediation time
+Enforcement:
+✓ Critical vulnerabilities: Blocked from deployment
+✓ High vulnerabilities: 7-day remediation SLA, warning on deploy
+✓ Medium/Low: 30/90-day SLA, tracked in dashboard
 
-Evidence: Scan reports, remediation tracking, admission logs
+Current Metrics (Last 30 Days):
+• 2,847 images scanned
+• 23 critical vulnerabilities blocked at admission
+• 156 high vulnerabilities remediated
+• Average time to remediation: 3.2 days (critical), 5.1 days (high)
+
+Evidence: Trivy scan reports, admission controller logs, remediation tracking
 ```
 
 **Speaker Notes:**
-- Emphasize proactive vs reactive approach
-- Show that scanning prevents deployment, not just detects
-- Be ready to discuss exception process
-- Have specific numbers ready
+- Key point: critical vulns are BLOCKED, not just detected
+- Those 23 blocked images never made it to production
+- We don't just find problems - we prevent them from reaching production
+- Teams get notified immediately when their images have issues
 
 ---
 
@@ -256,23 +309,32 @@ Security Posture: Monitoring & Response
 
 How we detect and respond to security events:
 
-✓ Centralized logging with 1-year retention
-✓ Real-time security alerting
-✓ Runtime threat detection
-✓ 24/7 monitoring by [SOC/Team]
-✓ Defined incident response procedures
+Continuous Monitoring Stack:
+✓ Falco runtime threat detection on every node
+✓ Kubernetes audit logs → SIEM (Splunk)
+✓ Network flow logs → anomaly detection
+✓ Custom alerts for 127 security-relevant events
 
-Alert Volume: [X] security alerts/month
-Response Time: [Y] minutes to acknowledge
+Response Capability:
+✓ 24/7 monitoring by Platform Security Team (3 FTEs)
+✓ SOC integration for escalation
+✓ Automated response for known attack patterns
+✓ Incident response runbooks for top 20 scenarios
 
-Evidence: SIEM dashboards, alert logs, incident reports
+Performance Metrics:
+• Mean time to detect: 4 minutes
+• Mean time to acknowledge: 12 minutes
+• Mean time to contain: 45 minutes (automated) / 2 hours (manual)
+• Last 90 days: 47 alerts, 0 incidents, 3 exercises
+
+Evidence: SIEM dashboards, alert logs, incident response records
 ```
 
 **Speaker Notes:**
-- Emphasize continuous monitoring capability
-- Be ready to show live dashboard if asked
-- Have incident response process summary ready
-- Reference immutable log storage
+- Falco catches things like: shell spawned in container, sensitive file access, privilege escalation
+- The 47 alerts were all true positives but non-incidents (e.g., blocked attempts)
+- We exercise the response process quarterly - last exercise was [date]
+- If asked: "I can show you the live dashboard right now if you'd like"
 
 ---
 
@@ -283,25 +345,30 @@ Security Posture: Supply Chain Security
 
 How we ensure software integrity:
 
-✓ Approved container registries only
-✓ Image signing and verification
-✓ Software Bill of Materials (SBOM) generation
-✓ Dependency vulnerability tracking
-✓ Automated updates for base images
+Approved Sources Only:
+✓ Private container registry - no direct pulls from Docker Hub
+✓ Base images from Iron Bank (DoD hardened) or internally built
+✓ All third-party dependencies inventoried and scanned
+
+Image Integrity:
+✓ Cosign signatures required on all production images
+✓ Signature verification at admission (unsigned = rejected)
+✓ SBOM generated for every image
 
 Pipeline Security:
-• Signed commits required
-• Automated security gates
-• Separation of build and deploy
+✓ Signed commits required (GPG keys tied to CAC)
+✓ Two-person review for production changes
+✓ Immutable build environment
+✓ Separation of build and deploy credentials
 
-Evidence: Registry policies, signing configs, SBOM artifacts
+Evidence: Registry policies, Cosign verification logs, SBOM artifacts
 ```
 
 **Speaker Notes:**
-- Reference software supply chain requirements (EO 14028)
-- Explain how you prevent untrusted code
-- Be ready to discuss third-party dependencies
-- Mention SBOM availability
+- Iron Bank images are already hardened and assessed - we inherit that work
+- Unsigned images don't deploy. Period. No exceptions.
+- SBOM lets us answer "are we affected by [new CVE]?" in minutes, not days
+- This addresses the software supply chain requirements from EO 14028
 
 ---
 
@@ -310,54 +377,68 @@ Evidence: Registry policies, signing configs, SBOM artifacts
 ```
 Compliance Status
 
-Control Implementation: [X]% complete
+Control Implementation: 94% fully implemented
 
-┌──────────────────────────────────────────┐
-│████████████████████████████░░░░░░│ 94%   │
-└──────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│██████████████████████████████████████░░░░│  94%  │
+└──────────────────────────────────────────────────┘
 
 By Control Family:
 • Access Control (AC): 100% ✓
-• Audit (AU): 100% ✓
+• Audit & Accountability (AU): 100% ✓
 • Configuration Management (CM): 100% ✓
-• System Protection (SC): 100% ✓
-• System Integrity (SI): 89% (POA&M items)
+• Identification & Auth (IA): 100% ✓
+• System & Comms Protection (SC): 100% ✓
+• System & Info Integrity (SI): 89% (6 POA&M items)
+• Contingency Planning (CP): 83% (2 POA&M items)
 
-Continuous Monitoring: Operational ✓
-Evidence Automation: 100% ✓
+Continuous Compliance Features:
+✓ OSCAL-based SSP updated automatically with config changes
+✓ 100% of evidence collection automated
+✓ Real-time compliance dashboard
+✓ Drift detection and alerting
 ```
 
 **Speaker Notes:**
-- Show overall compliance posture
-- Highlight areas of strength
-- Be transparent about gaps
-- Mention automated evidence as confidence builder
+- 94% is strong, and the gaps are all documented with remediation plans
+- Automated evidence means we're not scrambling before assessments
+- The OSCAL SSP stays current - when a config changes, documentation updates
+- Drift detection means if someone manually changes something, we know immediately
 
 ---
 
 ### Slide 12: Findings Summary
 
 ```
-Assessment Findings
+Assessment Findings Summary
 
-                    Found    Remediated    Open
-────────────────────────────────────────────────
-Critical              2          2          0
-High                  5          5          0
-Moderate             12          8          4
-Low                   8          3          5
-────────────────────────────────────────────────
-Total                27         18          9
+Third-Party Assessment by [3PAO Name], completed December 2024
 
-All critical and high findings have been remediated.
-Remaining findings are documented in POA&M.
+                    Initial    Remediated    Open
+────────────────────────────────────────────────────
+Critical              1           1           0
+High                  4           4           0
+Moderate             11           8           3
+Low                   7           2           5
+────────────────────────────────────────────────────
+Total                23          15           8
+
+✓ All critical and high findings have been remediated
+✓ Remaining 8 findings are low/moderate with compensating controls
+✓ Full remediation scheduled for Q2 2025
+
+Top Findings Remediated:
+• Hardcoded credentials in config → Moved to Sealed Secrets
+• Missing network policies → Default-deny implemented
+• Incomplete audit logging → Full audit pipeline deployed
+• Privileged containers → PSP enforcement enabled
 ```
 
 **Speaker Notes:**
-- Be direct about what was found
-- Emphasize critical/high closure
-- Don't hide or minimize findings
-- Explain categorization if asked
+- We took the critical finding seriously - fixed within 48 hours
+- The remaining 8 are documented in POA&M with realistic timelines
+- Assessment team noted our "strong security culture and rapid remediation"
+- If asked about specific findings, defer to detailed POA&M discussion
 
 ---
 
@@ -366,26 +447,33 @@ Remaining findings are documented in POA&M.
 ```
 Plan of Action & Milestones
 
-Open Items: 9 (4 moderate, 5 low)
+Open Items: 8 (3 moderate, 5 low)
 
-Key Milestones:
-┌────────────────────────────────────────────────┐
-│ Finding              │ Action        │ Due     │
-├────────────────────────────────────────────────┤
-│ SI-2 scan coverage   │ Add registry  │ Q1 2024 │
-│ CM-7 min services    │ Node hardening│ Q2 2024 │
-│ AU-6 log review      │ Automation    │ Q1 2024 │
-└────────────────────────────────────────────────┘
+High-Priority Items:
+┌─────────────────────────────────────────────────────────────────┐
+│ Finding                   │ Action               │ Target Date  │
+├─────────────────────────────────────────────────────────────────┤
+│ SI-4: Expand log coverage │ Add node-level logs  │ Feb 2025     │
+│ CP-9: Backup verification │ Automate restore test│ Mar 2025     │
+│ CM-7: Min functionality   │ Node OS hardening    │ Mar 2025     │
+└─────────────────────────────────────────────────────────────────┘
 
-Risk: All POA&M items are low/moderate severity
-with compensating controls in place.
+Compensating Controls for Open Items:
+• SI-4: Application-level logging provides 90% visibility
+• CP-9: Manual restore tested quarterly, last successful Dec 2024
+• CM-7: Container-level restrictions limit exposure
+
+Resource Commitment:
+• 0.5 FTE dedicated to POA&M remediation
+• Monthly progress reviews with ISSM
+• Quarterly reporting to leadership
 ```
 
 **Speaker Notes:**
-- Summarize, don't read every item
-- Explain compensating controls for key items
-- Show realistic timelines
-- Demonstrate accountability
+- These are realistic timelines, not aspirational
+- We have dedicated resources assigned - this isn't "fit it in when we can"
+- The compensating controls reduce risk while we complete full remediation
+- If asked: we prioritized critical/high because they represented real risk
 
 ---
 
@@ -394,28 +482,38 @@ with compensating controls in place.
 ```
 Residual Risk Assessment
 
-Overall Residual Risk: MODERATE
+Overall Residual Risk: MODERATE (Acceptable)
 
-Risk Factors:
-• Inherited cloud provider risks (accepted via FedRAMP)
-• POA&M items with compensating controls
-• Continuous monitoring gaps during transition
+Risk Factors:                          Mitigations:
+─────────────────────────────────────────────────────────────────
+• 8 open POA&M items                   • Compensating controls active
+                                       • Dedicated remediation resources
 
-Risk Mitigations:
-• Defense in depth across all layers
-• Automated detection and response
-• 24/7 monitoring capability
-• Defined incident response procedures
+• Multi-tenant environment             • Namespace isolation enforced
+                                       • Network policies default-deny
 
-Recommendation: Residual risk is acceptable given
-mission criticality and security controls in place.
+• Rapid deployment cadence             • Automated security gates
+                                       • No bypass capability
+
+• Inherited cloud provider risks       • FedRAMP High authorization
+                                       • Continuous monitoring
+
+Risk-Benefit Analysis:
+The platform significantly REDUCES organizational risk by:
+• Eliminating 12+ separate infrastructure ATOs
+• Enforcing consistent security controls
+• Enabling continuous compliance vs. point-in-time
+• Reducing human error through automation
+
+Recommendation: Residual risk is acceptable given mission benefit
+               and defense-in-depth security architecture.
 ```
 
 **Speaker Notes:**
-- Be honest about residual risk
-- Explain what moderate means for this system
-- Highlight mitigations for key risks
-- Don't claim zero risk—it destroys credibility
+- Be honest about risks - AOs appreciate candor
+- The key message: this platform reduces overall organizational risk
+- Alternative is fragmented systems with inconsistent security
+- "Moderate" is realistic and appropriate for this system
 
 ---
 
@@ -424,86 +522,114 @@ mission criticality and security controls in place.
 ```
 Authorization Request
 
-We request the Authorizing Official grant:
+We respectfully request the Authorizing Official grant:
 
-    [Three-Year Authorization to Operate]
-                    or
-    [Continuous Authorization to Operate]
+     ┌─────────────────────────────────────────────────────┐
+     │     CONTINUOUS AUTHORIZATION TO OPERATE (cATO)      │
+     │                                                      │
+     │     with ongoing authorization contingent upon:      │
+     │     • Continuous monitoring per ConMon plan          │
+     │     • Monthly posture reporting to AO                │
+     │     • POA&M remediation per agreed schedule          │
+     └─────────────────────────────────────────────────────┘
 
-Scope: [SYSTEM NAME] as defined in authorization boundary
+Scope: Enterprise DevSecOps Platform as defined in authorization boundary
 
-Conditions: Continuous monitoring per ConMon plan
+ISSM Recommendation:
 
-Recommendation: Based on:
-• Security posture demonstrated
-• Managed residual risk
-• Mission criticality
+"Based on the demonstrated security posture, managed residual risk,
+ and mission criticality, I recommend authorization. The platform's
+ automated security enforcement and continuous monitoring provide
+ superior assurance compared to traditional point-in-time ATO."
 
-The ISSM recommends authorization.
+                                    — [ISSM Name], ISSM
 ```
 
 **Speaker Notes:**
-- State the specific ask clearly
-- Reference ISSM recommendation
-- Be prepared for conditions or caveats
+- State the specific ask clearly - we're requesting cATO
+- Reference the ISSM recommendation explicitly
+- Be prepared for questions or conditions
 - Thank the AO for their time and consideration
+- Note: we're committed to transparency - if our posture degrades, we'll report it
 
 ---
 
 ### Slide 16: Questions
 
 ```
-Questions?
+                        Questions?
 
 
 
-Supporting Materials Available:
-• Complete System Security Plan
-• Security Assessment Report
-• POA&M Detail
-• Evidence Repository Access
-• Technical SMEs
 
-Contact: [NAME] | [EMAIL] | [PHONE]
+                Supporting Materials Available:
+
+                • System Security Plan (OSCAL format)
+                • Security Assessment Report
+                • POA&M Detail with Evidence
+                • Live Dashboard Demo
+                • Technical Subject Matter Experts
+
+
+                Point of Contact:
+                [Your Name]
+                [Email]
+                [Phone]
 ```
 
 **Speaker Notes:**
 - Open the floor for questions
-- Have SMEs ready but don't volunteer them
-- If asked something you don't know, offer to follow up
-- Thank everyone for their time
+- Have SMEs available but don't volunteer them - let the AO ask
+- If you don't know an answer, say "I'll follow up on that within 24 hours"
+- Thank everyone for their time regardless of outcome
+- Ask if there's anything else needed to support their decision
 
 ---
 
-## Leave-Behind: Executive Summary
+## One-Page Leave-Behind
 
-Prepare a one-page executive summary the AO can reference after the briefing:
+Print and leave with the AO for reference:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    EXECUTIVE SUMMARY                         │
-│                      [SYSTEM NAME]                           │
-│                   Authorization Request                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  MISSION: [One sentence mission description]                 │
-│                                                              │
-│  REQUEST: [ATO Type] for [Duration]                          │
-│                                                              │
-│  SECURITY POSTURE:                                           │
-│  • [X]% controls implemented                                 │
-│  • [Y] critical/high findings - all remediated               │
-│  • Continuous monitoring operational                         │
-│                                                              │
-│  RESIDUAL RISK: Moderate                                     │
-│  • POA&M: [X] items, all low/moderate                        │
-│  • Compensating controls in place                            │
-│                                                              │
-│  RECOMMENDATION: ISSM recommends authorization               │
-│                                                              │
-│  CONTACT: [Name] | [Email] | [Phone]                         │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                       EXECUTIVE SUMMARY                              │
+│              Enterprise DevSecOps Platform (DSOP)                   │
+│                    Authorization Request                             │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  MISSION                                                             │
+│  Standardized container platform enabling rapid, secure deployment   │
+│  of mission applications across 23 teams and 47 programs of record. │
+│                                                                      │
+│  REQUEST                                                             │
+│  Continuous Authorization to Operate (cATO)                          │
+│                                                                      │
+│  SECURITY POSTURE                                                    │
+│  • 94% of controls fully implemented                                 │
+│  • 5 critical/high findings - all remediated                         │
+│  • 100% automated evidence collection                                │
+│  • Continuous monitoring operational 24/7                            │
+│  • 47 security policies enforced at admission                        │
+│                                                                      │
+│  RESIDUAL RISK: Moderate (Acceptable)                                │
+│  • 8 POA&M items remaining, all low/moderate severity                │
+│  • Compensating controls in place for all open items                 │
+│  • Remediation on track for Q2 2025 completion                       │
+│                                                                      │
+│  MISSION IMPACT                                                      │
+│  • $4.2M annual savings from infrastructure consolidation            │
+│  • 35 applications pending platform availability                     │
+│  • Reduces application ATO timelines from months to weeks            │
+│                                                                      │
+│  RECOMMENDATION                                                      │
+│  ISSM recommends authorization. Platform security controls exceed    │
+│  traditional infrastructure and enable continuous compliance.        │
+│                                                                      │
+│  CONTACT                                                             │
+│  [Your Name] | [Email] | [Phone]                                     │
+│                                                                      │
+│  Briefing Date: [Date]                                               │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -513,87 +639,96 @@ Prepare a one-page executive summary the AO can reference after the briefing:
 ### One Week Before
 - [ ] Confirm date/time/location with AO office
 - [ ] Send calendar invite with dial-in/video link
-- [ ] Send agenda and any pre-read materials
+- [ ] Send agenda and pre-read (executive summary only)
 - [ ] Confirm ISSM availability and support
-- [ ] Schedule rehearsal with security team
+- [ ] Schedule internal rehearsal with security team
+- [ ] Prepare backup laptop and printed materials
 
 ### Day Before
-- [ ] Rehearse full briefing with timer
+- [ ] Rehearse full briefing with timer (aim for 25 minutes)
 - [ ] Test A/V equipment and screen sharing
-- [ ] Print backup copies of deck and leave-behind
+- [ ] Print: deck (2 copies), leave-behind (3 copies), POA&M detail
 - [ ] Confirm SME availability for questions
-- [ ] Review any recent AO feedback or concerns
+- [ ] Review any recent communications or concerns from AO office
+- [ ] Get good sleep
 
 ### Day Of
-- [ ] Arrive early / join call early
+- [ ] Arrive 15 minutes early / join call 5 minutes early
 - [ ] Test screen sharing before AO joins
 - [ ] Have backup phone number for AO office
-- [ ] Bring: deck, leave-behind, SSP, SAR, POA&M
-- [ ] Silence phones and close unnecessary apps
+- [ ] Bring: laptop, printed materials, phone, water
+- [ ] Silence phones, close unnecessary apps, disable notifications
+- [ ] Take a breath and remember: you know this system
 
 ### After Briefing
 - [ ] Send thank-you email within 24 hours
-- [ ] Provide any follow-up information requested
-- [ ] Document AO feedback and conditions
-- [ ] Update authorization package as needed
-- [ ] Schedule follow-up if decision deferred
+- [ ] Provide any follow-up information requested (same-day if possible)
+- [ ] Document AO feedback, questions, and any conditions
+- [ ] Update authorization package with any required changes
+- [ ] If decision deferred: schedule follow-up within 2 weeks
+- [ ] Celebrate progress regardless of outcome
 
 ---
 
-## Common AO Questions & Response Frameworks
+## Common AO Questions & Responses
 
 ### "What keeps you up at night about this system?"
 
-**Framework:** Be honest. Pick your top concern and explain what you're doing about it.
+**Good Answer:**
+> "My biggest concern is ensuring our multi-tenant isolation holds up as we scale. We've mitigated this with namespace isolation, network policies, and runtime monitoring, but I think about it. We're also investing in chaos engineering to proactively test these boundaries. If isolation failed, our monitoring would detect cross-namespace traffic within seconds."
 
-**Example Response:**
-> "Honestly, my biggest concern is [specific concern]. We've mitigated this by [specific mitigation], and we're actively working on [improvement]. Our continuous monitoring would detect [related threat] within [timeframe]."
+**Why It Works:** Honest, shows you've thought about it, demonstrates proactive mitigation.
 
 ---
 
 ### "What happens if this system is compromised?"
 
-**Framework:** Mission impact first, then detection and response capabilities.
+**Good Answer:**
+> "It depends on the compromise type. If a single application container is compromised, namespace isolation and network policies contain the blast radius to that team's namespace. Lateral movement would trigger Falco alerts, and we'd have containment within minutes. If the control plane itself is compromised - which would require defeating multiple layers - we have the ability to fail over to backup clusters while we investigate. Full recovery from our worst-case scenario is approximately 4 hours."
 
-**Example Response:**
-> "If compromised, the impact would be [specific mission impact]. However, our [monitoring capability] would detect [indicators] within [timeframe]. Our incident response plan activates [team] who would [containment action], limiting blast radius to [scope]. Full recovery would take approximately [timeframe]."
-
----
-
-### "How does this compare to similar systems?"
-
-**Framework:** Reference benchmarks if available, methodology if not.
-
-**Example Response:**
-> "Compared to similar platforms, our [metric] is [comparison]. Our third-party assessment rated us [rating]. We've implemented [differentiator] which exceeds typical implementations."
+**Why It Works:** Acknowledges the possibility, shows layered defense, demonstrates prepared response.
 
 ---
 
 ### "Why should I trust your continuous monitoring?"
 
-**Framework:** Demonstrate, don't just describe.
+**Good Answer:**
+> "Great question - let me show you rather than tell you. [Share dashboard] This is our live security dashboard. You can see current alert status, compliance posture, and last scan results. Last month, we detected 47 security events, investigated all of them, and confirmed none were successful attacks. Here's an example: [show specific alert]. This was a blocked privilege escalation attempt that triggered immediately. I'm happy to give you read access to this dashboard if you'd like ongoing visibility."
 
-**Example Response:**
-> "I can show you our live dashboard if you'd like. [Show dashboard]. You can see [current metric]. Last month, we detected and responded to [X] security events with an average response time of [Y]. Here's an example of an issue we caught and remediated: [specific example]."
-
----
-
-### "What would you need from me beyond authorization?"
-
-**Framework:** Be prepared to ask for support if needed.
-
-**Example Response:**
-> "The authorization itself is our primary need. However, [optional: additional resource/support needed]. We're committed to maintaining this posture and will keep you informed through [communication mechanism]."
+**Why It Works:** Shows, doesn't just tell. Offers transparency.
 
 ---
 
-## Download Formats
+### "How does this platform affect application ATOs?"
 
-- [PowerPoint Template](./downloads/ao-briefing.pptx) — Editable PPTX
-- [Google Slides](https://docs.google.com/presentation/d/xxx) — Make a copy
-- [Keynote Template](./downloads/ao-briefing.key) — Mac users
-- [PDF Example](./downloads/ao-briefing-example.pdf) — Reference only
+**Good Answer:**
+> "That's actually one of the main benefits. Applications deployed on this platform inherit approximately 60% of their controls from the platform authorization. A typical application ATO that took 12 months previously can now be completed in 4-6 weeks because we've already addressed infrastructure security, baseline configurations, and continuous monitoring. We've completed 3 application ATOs on the pilot platform, averaging 5 weeks each."
+
+**Why It Works:** Quantifies the benefit with real data.
 
 ---
 
-**[← Back to Templates](/ato-ebook/templates)** | **[Back to Home →](/ato-ebook/home)**
+### "What do you need from me beyond authorization?"
+
+**Good Answer:**
+> "Authorization is the primary need. Beyond that, I'd welcome periodic visibility - we plan to send monthly posture summaries, and I'd appreciate 15 minutes quarterly to brief you on any significant changes or emerging risks. If you ever have questions or concerns between those touchpoints, I'm always available."
+
+**Why It Works:** Minimal ask, but establishes ongoing relationship.
+
+---
+
+## Customization Notes
+
+To adapt this template for your specific platform:
+
+1. **Replace bracketed items** `[like this]` with your specific information
+2. **Update metrics** with your actual numbers (be honest, not aspirational)
+3. **Adjust control percentages** based on your assessment results
+4. **Modify the architecture diagram** to match your actual boundary
+5. **Update the POA&M table** with your real findings and timelines
+
+The speaker notes are suggestions - adapt to your personal style and comfort level.
+
+---
+
+**[← Back to Templates](/templates/mapping-matrix)** | **[Back to Home →](/)**
