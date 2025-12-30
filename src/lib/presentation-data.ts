@@ -4,17 +4,25 @@ export interface Slide {
   title: string;
   subtitle?: string;
   content: SlideContent[];
-  layout: 'title' | 'content' | 'two-column' | 'bullets' | 'table' | 'conclusion';
+  layout: 'title' | 'content' | 'two-column' | 'bullets' | 'table' | 'conclusion' | 'stats' | 'comparison' | 'icon-grid' | 'big-statement';
   notes?: string;
+  background?: 'dark' | 'light' | 'gradient' | 'accent';
 }
 
 export type SlideContent =
-  | { type: 'text'; text: string; bold?: boolean; italic?: boolean; size?: 'sm' | 'md' | 'lg' | 'xl' }
-  | { type: 'bullet'; items: string[] }
+  | { type: 'text'; text: string; bold?: boolean; italic?: boolean; size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'; align?: 'left' | 'center' | 'right' }
+  | { type: 'bullet'; items: string[]; icon?: string }
   | { type: 'numbered'; items: string[] }
   | { type: 'table'; headers: string[]; rows: string[][] }
   | { type: 'highlight'; text: string; color?: 'teal' | 'red' | 'amber' | 'green' }
-  | { type: 'spacer' };
+  | { type: 'spacer'; size?: 'sm' | 'md' | 'lg' }
+  | { type: 'stat'; value: string; label: string; trend?: 'up' | 'down' | 'neutral' }
+  | { type: 'stats-row'; stats: Array<{ value: string; label: string; icon?: string }> }
+  | { type: 'icon-box'; icon: string; title: string; description: string; color?: string }
+  | { type: 'comparison'; left: { title: string; items: string[]; color: 'red' | 'green' }; right: { title: string; items: string[]; color: 'red' | 'green' } }
+  | { type: 'diagram'; variant: 'flow' | 'stack' | 'timeline' | 'hub'; data: string[] }
+  | { type: 'quote'; text: string; author?: string }
+  | { type: 'cta'; text: string; subtext?: string };
 
 export const executiveSummarySlides: Slide[] = [
   {
@@ -22,234 +30,241 @@ export const executiveSummarySlides: Slide[] = [
     title: 'Modernizing Federal Authorization',
     subtitle: 'From Fragmented Compliance to Continuous ATO',
     content: [
-      { type: 'text', text: 'Executive Brief for Leadership', size: 'lg' },
-      { type: 'spacer' },
-      { type: 'text', text: '[Organization Name]', size: 'md' },
-      { type: 'text', text: 'January 2025', size: 'sm' },
+      { type: 'spacer', size: 'lg' },
+      { type: 'text', text: 'Executive Brief for Leadership', size: 'lg', align: 'center' },
+      { type: 'spacer', size: 'md' },
+      { type: 'stats-row', stats: [
+        { value: '80%', label: 'Faster ATO', icon: 'speed' },
+        { value: '$4.2M', label: 'Annual Savings', icon: 'money' },
+        { value: '47', label: 'Programs Unified', icon: 'grid' },
+      ]},
     ],
     layout: 'title',
+    background: 'dark',
     notes: 'Welcome leadership. This brief covers our current authorization challenges and a path forward.',
   },
   {
     id: 2,
-    title: 'The Current State',
-    subtitle: 'Fragmented, Costly, and Unsustainable',
+    title: 'The Current Reality',
+    subtitle: 'Every Program Is an Island',
     content: [
-      { type: 'highlight', text: 'Each Program of Record operates as an island', color: 'red' },
-      { type: 'spacer' },
-      { type: 'bullet', items: [
-        'Individual programs procure their own hardware',
-        'Each program builds custom VM infrastructure',
-        'Programs independently acquire secure container runtimes',
-        'No economies of scale or shared security inheritance',
+      { type: 'diagram', variant: 'hub', data: ['Program A', 'Program B', 'Program C', 'Program D'] },
+      { type: 'spacer', size: 'md' },
+      { type: 'stats-row', stats: [
+        { value: '$2-5M', label: 'Per Program Infrastructure', icon: 'money' },
+        { value: '12-18', label: 'Months to ATO', icon: 'clock' },
+        { value: '0%', label: 'Control Reuse', icon: 'recycle' },
       ]},
     ],
-    layout: 'bullets',
+    layout: 'stats',
+    background: 'light',
     notes: 'Emphasize the duplication happening across the organization.',
   },
   {
     id: 3,
-    title: 'Authorization Chaos',
+    title: 'The Hidden Cost',
     content: [
-      { type: 'bullet', items: [
-        'Every ATO package contains one-off requirements unique to that system',
-        'No standardized control implementations that can be reused',
-        'Each assessment starts from scratch (even with 80%+ shared architecture)',
-        'Assessors must re-learn each environment',
-      ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: 'Result: 12-18 month authorization timelines', color: 'red' },
+      { type: 'comparison',
+        left: {
+          title: 'What We Pay For',
+          items: ['Duplicate hardware purchases', 'Redundant VM infrastructure', 'Separate container runtimes', 'Individual security tools'],
+          color: 'red'
+        },
+        right: {
+          title: 'What We Get',
+          items: ['Incompatible systems', 'No shared controls', 'Manual everything', 'Endless re-work'],
+          color: 'red'
+        }
+      },
+      { type: 'spacer', size: 'md' },
+      { type: 'highlight', text: 'The real cost isn\'t hardware—it\'s the millions spent on labor that could be automated', color: 'amber' },
     ],
-    layout: 'bullets',
-    notes: 'The lack of standardization is killing efficiency.',
-  },
-  {
-    id: 4,
-    title: 'The True Cost',
-    subtitle: 'It\'s Not Hardware—It\'s Labor',
-    content: [
-      { type: 'text', text: 'Organizations spend millions annually on:', size: 'md', bold: true },
-      { type: 'spacer' },
-      { type: 'bullet', items: [
-        'Redundant documentation efforts across programs',
-        'Manual evidence collection performed separately for each system',
-        'Security engineers context-switching between incompatible environments',
-        'Extended authorization timelines that delay mission capability',
-        'Continuous re-authorization efforts that consume entire teams',
-      ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: 'We pay premium prices for commodity capabilities', color: 'amber' },
-    ],
-    layout: 'bullets',
+    layout: 'comparison',
+    background: 'light',
     notes: 'Labor costs are the hidden expense leadership often underestimates.',
   },
   {
-    id: 5,
-    title: 'The Path Forward',
-    subtitle: 'Platform-Based Continuous Authorization',
+    id: 4,
+    title: 'Authorization Chaos',
+    subtitle: 'Why Every ATO Takes 18 Months',
     content: [
-      { type: 'text', text: 'DevSecOps Platform (DSOP) + Secure Container Runtime', size: 'lg', bold: true },
-      { type: 'spacer' },
-      { type: 'highlight', text: 'Compliance is inherited, not rebuilt', color: 'teal' },
-      { type: 'spacer' },
-      { type: 'text', text: 'A foundation where security controls flow down to all applications', size: 'md' },
+      { type: 'diagram', variant: 'flow', data: ['New System', 'Custom Docs', 'Manual Evidence', 'Long Review', 'Finally ATO', 'Immediately Stale'] },
+      { type: 'spacer', size: 'md' },
+      { type: 'icon-box', icon: 'warning', title: 'The Vicious Cycle', description: 'Each assessment starts from scratch, even when systems share 80%+ of their architecture', color: 'red' },
     ],
     layout: 'content',
-    notes: 'This is the key concept: inheritance over rebuilding.',
+    background: 'light',
+    notes: 'The lack of standardization is killing efficiency.',
+  },
+  {
+    id: 5,
+    title: 'There Is a Better Way',
+    content: [
+      { type: 'cta', text: 'Platform-Based Continuous Authorization', subtext: 'One platform. Inherited controls. Automated compliance.' },
+    ],
+    layout: 'big-statement',
+    background: 'gradient',
+    notes: 'This is the key transition moment in the presentation.',
   },
   {
     id: 6,
-    title: 'Flexible Deployment Options',
+    title: 'The DSOP Advantage',
+    subtitle: 'DevSecOps Platform + Secure Container Runtime',
     content: [
-      { type: 'table', headers: ['Option', 'Description', 'Best For'], rows: [
-        ['Managed Service', 'Centrally-operated platform', 'Teams wanting turnkey solutions'],
-        ['Local Installation', 'Self-hosted on program hardware', 'Air-gapped networks, data residency requirements'],
+      { type: 'diagram', variant: 'stack', data: ['Mission Applications', 'Inherited Controls', 'DSOP Platform', 'Secure Runtime'] },
+      { type: 'spacer', size: 'md' },
+      { type: 'stats-row', stats: [
+        { value: '60%', label: 'Controls Inherited', icon: 'shield' },
+        { value: '1x', label: 'Authorize Once', icon: 'check' },
+        { value: '∞', label: 'Apps Benefit', icon: 'apps' },
       ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: 'Both options use identical hardened runtime and inherit same security controls', color: 'teal' },
     ],
-    layout: 'table',
-    notes: 'Flexibility is key—not one-size-fits-all.',
-  },
-  {
-    id: 7,
-    title: 'Shared Infrastructure Benefits',
-    subtitle: 'Inherited Security',
-    content: [
-      { type: 'bullet', items: [
-        'One-time platform authorization that all hosted applications inherit',
-        'Pre-approved base images with embedded security controls',
-        'Standardized network policies, encryption, and access controls',
-        'Continuous monitoring and logging infrastructure shared across all workloads',
-      ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: '~60% of application controls inherited from platform', color: 'green' },
-    ],
-    layout: 'bullets',
+    layout: 'stats',
+    background: 'light',
     notes: 'The 60% inheritance is a conservative estimate based on typical NIST 800-53 mappings.',
   },
   {
-    id: 8,
-    title: 'Automation Replaces Manual Labor',
+    id: 7,
+    title: 'Flexible Deployment',
+    subtitle: 'One Platform, Your Way',
     content: [
-      { type: 'table', headers: ['Capability', 'Benefit'], rows: [
-        ['Machine-readable controls (OSCAL)', 'Documentation updates automatically with config changes'],
-        ['Automated evidence collection', 'Runs continuously, not just before assessments'],
-        ['Policy-as-code enforcement', 'Prevents non-compliant deployments'],
-        ['Continuous compliance dashboards', 'Real-time authorization status visibility'],
-      ]},
+      { type: 'comparison',
+        left: {
+          title: 'Managed Service',
+          items: ['Turnkey solution', 'We operate it', 'Fastest deployment', 'Lower overhead'],
+          color: 'green'
+        },
+        right: {
+          title: 'Local Installation',
+          items: ['Your hardware', 'Air-gap ready', 'Data residency', 'Full control'],
+          color: 'green'
+        }
+      },
+      { type: 'spacer', size: 'md' },
+      { type: 'highlight', text: 'Same hardened runtime. Same security controls. Same compliance inheritance.', color: 'teal' },
     ],
-    layout: 'table',
+    layout: 'comparison',
+    background: 'light',
+    notes: 'Flexibility is key—not one-size-fits-all.',
+  },
+  {
+    id: 8,
+    title: 'Automation Changes Everything',
+    content: [
+      { type: 'stats-row', stats: [
+        { value: 'OSCAL', label: 'Machine-Readable Docs', icon: 'doc' },
+        { value: '24/7', label: 'Evidence Collection', icon: 'sync' },
+        { value: '0', label: 'Manual Updates', icon: 'robot' },
+      ]},
+      { type: 'spacer', size: 'lg' },
+      { type: 'diagram', variant: 'flow', data: ['Config Change', 'Auto-Update SSP', 'Collect Evidence', 'Dashboard Ready'] },
+    ],
+    layout: 'stats',
+    background: 'accent',
     notes: 'Automation is the key to sustainability.',
   },
   {
     id: 9,
-    title: 'Standardization Enables Reuse',
+    title: 'Continuous ATO',
+    subtitle: 'Authorization That Stays Current',
     content: [
-      { type: 'text', text: 'When all applications deploy to the same platform:', size: 'md', bold: true },
-      { type: 'spacer' },
-      { type: 'bullet', items: [
-        'Control implementations become templates, not one-time documents',
-        'Assessment artifacts are reusable across programs',
-        'Security teams build deep expertise in one environment',
-        'New applications achieve ATO in days or weeks, not months',
-      ]},
+      { type: 'comparison',
+        left: {
+          title: 'Traditional ATO',
+          items: ['Point-in-time snapshot', 'Immediately decays', 'Periodic re-assessment', '18-month cycles'],
+          color: 'red'
+        },
+        right: {
+          title: 'Continuous ATO',
+          items: ['Real-time visibility', 'Always current', 'Continuous assurance', 'Deploy anytime'],
+          color: 'green'
+        }
+      },
     ],
-    layout: 'bullets',
-    notes: 'This is where the ROI becomes exponential.',
-  },
-  {
-    id: 10,
-    title: 'The cATO Model',
-    subtitle: 'Continuous Authorization',
-    content: [
-      { type: 'text', text: 'Rather than point-in-time authorization that immediately begins decaying:', size: 'md' },
-      { type: 'spacer' },
-      { type: 'bullet', items: [
-        'Maintains real-time visibility into security posture',
-        'Detects and alerts on configuration drift',
-        'Provides ongoing assurance rather than periodic snapshots',
-        'Enables rapid deployment of new capabilities within authorized boundaries',
-      ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: 'Authorization that stays current, not stale', color: 'green' },
-    ],
-    layout: 'bullets',
+    layout: 'comparison',
+    background: 'light',
     notes: 'cATO is the future—and it requires a platform approach.',
   },
   {
-    id: 11,
-    title: 'Current vs. Future State',
+    id: 10,
+    title: 'The Transformation',
     content: [
-      { type: 'table', headers: ['Current State', 'Future State'], rows: [
-        ['Each PoR buys own hardware', 'Shared, scalable infrastructure'],
-        ['Custom VM/container solutions per program', 'Single hardened container platform'],
-        ['Unique ATO requirements every time', 'Standardized, inheritable controls'],
-        ['Manual evidence collection', 'Automated, continuous compliance'],
-        ['12-18 month authorization cycles', 'Days-to-weeks for new applications'],
-        ['Millions in duplicated labor', 'Resources focused on mission'],
+      { type: 'table', headers: ['Today', 'Tomorrow'], rows: [
+        ['Each program buys hardware', 'Shared infrastructure'],
+        ['Custom solutions everywhere', 'One hardened platform'],
+        ['Unique requirements each time', 'Inheritable controls'],
+        ['Manual evidence collection', 'Automated compliance'],
+        ['12-18 month ATOs', 'Days to weeks'],
+        ['Duplicated labor costs', 'Mission-focused teams'],
       ]},
     ],
     layout: 'table',
+    background: 'light',
     notes: 'This comparison table is effective for leadership decision-making.',
   },
   {
-    id: 12,
-    title: 'Recommended Actions',
+    id: 11,
+    title: 'Five Steps to Get There',
     content: [
-      { type: 'numbered', items: [
-        'Establish a DevSecOps Platform — Deploy FedRAMP/DoD-approved Kubernetes with both managed and local installation options',
-        'Pursue Platform-Level Authorization — Obtain cATO for the platform itself',
-        'Implement Compliance Automation — Deploy OSCAL-based documentation and policy-as-code',
-        'Migrate Existing Workloads — Prioritize moving current applications to shared platform',
-        'Measure and Report — Track authorization timeline reduction and labor cost savings',
+      { type: 'diagram', variant: 'timeline', data: [
+        'Establish DSOP',
+        'Platform ATO',
+        'Automate Compliance',
+        'Migrate Workloads',
+        'Measure ROI'
       ]},
     ],
-    layout: 'bullets',
+    layout: 'content',
+    background: 'light',
     notes: 'These are concrete next steps leadership can approve.',
   },
   {
-    id: 13,
-    title: 'Expected Outcomes',
+    id: 12,
+    title: 'Expected Impact',
     content: [
-      { type: 'bullet', items: [
-        '80% reduction in time-to-ATO for new applications',
-        'Significant cost avoidance through eliminated hardware/software duplication',
-        'Improved security posture via continuous monitoring and standardized controls',
-        'Faster mission delivery with security built-in rather than bolted-on',
-        'Workforce optimization — security professionals focused on risk, not paperwork',
+      { type: 'stats-row', stats: [
+        { value: '80%', label: 'Faster Time-to-ATO', icon: 'speed' },
+        { value: '$4.2M', label: 'Annual Savings', icon: 'money' },
+        { value: '35+', label: 'Apps Waiting', icon: 'queue' },
       ]},
-      { type: 'spacer' },
-      { type: 'highlight', text: 'ROI: Measurable within first year', color: 'green' },
+      { type: 'spacer', size: 'lg' },
+      { type: 'stats-row', stats: [
+        { value: '24/7', label: 'Security Monitoring', icon: 'shield' },
+        { value: '100%', label: 'Evidence Automation', icon: 'check' },
+        { value: '1st Year', label: 'ROI Timeline', icon: 'chart' },
+      ]},
     ],
-    layout: 'bullets',
+    layout: 'stats',
+    background: 'accent',
     notes: 'Be prepared to discuss how these outcomes will be measured.',
   },
   {
-    id: 14,
-    title: 'The Bottom Line',
+    id: 13,
+    title: 'The Question Isn\'t If',
     content: [
-      { type: 'text', text: 'The question is not whether we can afford to modernize our authorization approach—', size: 'lg', italic: true },
-      { type: 'spacer' },
-      { type: 'highlight', text: 'It\'s whether we can afford not to.', color: 'teal' },
-      { type: 'spacer' },
-      { type: 'text', text: 'Every month of delay means more duplicated spending, more manual labor, and more mission capability sitting in authorization queues.', size: 'md' },
+      { type: 'quote', text: 'The question is not whether we can afford to modernize our authorization approach—it\'s whether we can afford not to.' },
+      { type: 'spacer', size: 'lg' },
+      { type: 'text', text: 'Every month of delay means more duplicated spending, more manual labor, and more mission capability sitting in authorization queues.', size: 'lg', align: 'center' },
     ],
-    layout: 'content',
+    layout: 'big-statement',
+    background: 'dark',
     notes: 'This is the call to action. Pause here for impact.',
   },
   {
-    id: 15,
-    title: 'The Path Forward Is Clear',
+    id: 14,
+    title: 'The Path Forward',
     content: [
-      { type: 'text', text: 'Shared Platforms', size: 'xl', bold: true },
-      { type: 'text', text: 'Inherited Controls', size: 'xl', bold: true },
-      { type: 'text', text: 'Automated Compliance', size: 'xl', bold: true },
-      { type: 'text', text: 'Continuous Authorization', size: 'xl', bold: true },
-      { type: 'spacer' },
-      { type: 'highlight', text: 'Ready to proceed when you are.', color: 'teal' },
+      { type: 'stats-row', stats: [
+        { value: '01', label: 'Shared Platforms', icon: 'platform' },
+        { value: '02', label: 'Inherited Controls', icon: 'inherit' },
+        { value: '03', label: 'Automated Compliance', icon: 'auto' },
+        { value: '04', label: 'Continuous Auth', icon: 'continuous' },
+      ]},
+      { type: 'spacer', size: 'lg' },
+      { type: 'cta', text: 'Ready to proceed when you are.', subtext: 'Questions?' },
     ],
     layout: 'conclusion',
+    background: 'gradient',
     notes: 'End with confidence. Be ready for questions.',
   },
 ];
