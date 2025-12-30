@@ -15,11 +15,6 @@ const PAGES_TO_PDF = [
     filename: 'executive-summary.pdf',
     title: 'Executive Summary - ATO in Days',
   },
-  {
-    url: '/templates/briefing-deck',
-    filename: 'ao-briefing-deck.pdf',
-    title: 'AO Briefing Deck - ATO in Days',
-  },
 ];
 
 async function waitForServer(url, maxAttempts = 30) {

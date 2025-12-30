@@ -82,7 +82,7 @@ Each chapter includes downloadable templates and tools. Get them all in one plac
 | [OSCAL SSP Template](/templates/oscal-ssp) | Starter template for machine-readable SSP |
 | [Evidence Scripts](/templates/evidence-scripts) | Automation scripts for evidence collection |
 | [Sprint Planner](/templates/sprint-planner) | 90-day project plan with milestones |
-| [Briefing Deck](/templates/briefing-deck) | AO presentation template |
+| [Executive Presentation](/presentation) | Interactive presentation with PowerPoint download |
 
 ---
 
