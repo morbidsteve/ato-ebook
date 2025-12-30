@@ -35,11 +35,11 @@ This guide provides a complete framework for achieving continuous authorization 
 
 | Chapter | Outcome |
 |---------|---------|
-| [Chapter 1: The Compliance Rosetta Stone](/ato-ebook/chapter-1) | A shared language between compliance and engineering teams |
-| [Chapter 2: Machine-Readable Compliance](/ato-ebook/chapter-2) | OSCAL-based documentation that stays current automatically |
-| [Chapter 3: Evidence on Autopilot](/ato-ebook/chapter-3) | Automated evidence collection for every assessment |
-| [Chapter 4: The 90-Day Sprint](/ato-ebook/chapter-4) | A week-by-week roadmap from cluster to authorization |
-| [Chapter 5: The Authorization Briefing](/ato-ebook/chapter-5) | A framework for presenting to Authorizing Officials |
+| [Chapter 1: The Compliance Rosetta Stone](/chapter-1-the-compliance-rosetta-stone) | A shared language between compliance and engineering teams |
+| [Chapter 2: Machine-Readable Compliance](/chapter-2-machine-readable-compliance) | OSCAL-based documentation that stays current automatically |
+| [Chapter 3: Evidence on Autopilot](/chapter-3-evidence-automation-checklist) | Automated evidence collection for every assessment |
+| [Chapter 4: The 90-Day Sprint](/chapter-4-the-90-day-sprint) | A week-by-week roadmap from cluster to authorization |
+| [Chapter 5: The Authorization Briefing](/chapter-5-the-authorization-briefing) | A framework for presenting to Authorizing Officials |
 
 ---
 
@@ -78,11 +78,11 @@ Each chapter includes downloadable templates and tools. Get them all in one plac
 
 | Resource | Description |
 |----------|-------------|
-| [Mapping Matrix](/ato-ebook/templates/mapping-matrix) | NIST 800-53 to Kubernetes control mapping |
-| [OSCAL SSP Template](/ato-ebook/templates/oscal-ssp) | Starter template for machine-readable SSP |
-| [Evidence Scripts](/ato-ebook/templates/evidence-scripts) | Automation scripts for evidence collection |
-| [Sprint Planner](/ato-ebook/templates/sprint-planner) | 90-day project plan with milestones |
-| [Briefing Deck](/ato-ebook/templates/briefing-deck) | AO presentation template |
+| [Mapping Matrix](/templates/mapping-matrix) | NIST 800-53 to Kubernetes control mapping |
+| [OSCAL SSP Template](/templates/oscal-ssp) | Starter template for machine-readable SSP |
+| [Evidence Scripts](/templates/evidence-scripts) | Automation scripts for evidence collection |
+| [Sprint Planner](/templates/sprint-planner) | 90-day project plan with milestones |
+| [Briefing Deck](/templates/briefing-deck) | AO presentation template |
 
 ---
 
@@ -96,16 +96,15 @@ Each chapter includes downloadable templates and tools. Get them all in one plac
 
 Ready to transform your authorization process?
 
-**[Start with Chapter 1: The Compliance Rosetta Stone →](/ato-ebook/chapter-1)**
+**[Start with Chapter 1: The Compliance Rosetta Stone →](/chapter-1-the-compliance-rosetta-stone)**
 
 ---
 
 ## Quick Navigation
 
-- [Chapter 1: The Compliance Rosetta Stone](/ato-ebook/chapter-1)
-- [Chapter 2: Machine-Readable Compliance](/ato-ebook/chapter-2)
-- [Chapter 3: Evidence on Autopilot](/ato-ebook/chapter-3)
-- [Chapter 4: The 90-Day Sprint](/ato-ebook/chapter-4)
-- [Chapter 5: The Authorization Briefing](/ato-ebook/chapter-5)
-- [Templates & Resources](/ato-ebook/templates)
-- [Visual Design Brief](/ato-ebook/visual-design-brief)
+- [Chapter 1: The Compliance Rosetta Stone](/chapter-1-the-compliance-rosetta-stone)
+- [Chapter 2: Machine-Readable Compliance](/chapter-2-machine-readable-compliance)
+- [Chapter 3: Evidence on Autopilot](/chapter-3-evidence-automation-checklist)
+- [Chapter 4: The 90-Day Sprint](/chapter-4-the-90-day-sprint)
+- [Chapter 5: The Authorization Briefing](/chapter-5-the-authorization-briefing)
+- [Executive Summary](/executive-summary)
