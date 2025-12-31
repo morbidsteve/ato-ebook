@@ -34,9 +34,9 @@ async function generatePDFs() {
   // Ensure output directory exists
   await mkdir(publicDir, { recursive: true });
 
-  // Start the Next.js dev server
-  console.log('Starting Next.js server...');
-  const server = spawn('npm', ['run', 'dev'], {
+  // Start the Next.js production server (faster than dev)
+  console.log('Starting Next.js production server...');
+  const server = spawn('npm', ['run', 'start'], {
     cwd: join(__dirname, '..'),
     stdio: ['ignore', 'pipe', 'pipe'],
     shell: true,
